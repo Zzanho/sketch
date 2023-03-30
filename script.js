@@ -10,13 +10,11 @@ function createGrid(numSquaresPerSide) {
   }
 
   // Create new grid
-  const squareSize = `calc(960px / ${numSquaresPerSide})`;
+  gridContainer.style.setProperty("--num-squares-per-side", numSquaresPerSide);
   for (let i = 0; i < numSquaresPerSide; i++) {
     for (let j = 0; j < numSquaresPerSide; j++) {
       const square = document.createElement("div");
       square.classList.add("square");
-      square.style.width = squareSize;
-      square.style.height = squareSize;
       gridContainer.appendChild(square);
 
       square.addEventListener("mouseover", () => {
@@ -60,12 +58,12 @@ function createGrid(numSquaresPerSide) {
 createGrid(slider.value);
 
 // Add event listeners
-slider.addEventListener("input", () => {
+newGridBtn.addEventListener("input", () => {
   const numSquaresPerSide = slider.value;
   createGrid(numSquaresPerSide);
 });
 
-newGridBtn.addEventListener("click", () => {
+slider.addEventListener("input", () => {
   const numSquaresPerSide = slider.value;
-  createGrid(numSquaresPerSide);
+  numSquaresDisplay.textContent = numSquaresPerSide;
 });
