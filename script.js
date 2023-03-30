@@ -1,5 +1,7 @@
-const gridContainer = document.querySelector("#grid-container");
-const newGridButton = document.querySelector("#new-grid-button");
+const slider = document.getElementById("slider");
+const numSquaresDisplay = document.getElementById("num-squares");
+const newGridBtn = document.getElementById("new-grid-btn");
+const gridContainer = document.getElementById("grid-container");
 
 function createGrid(numSquaresPerSide) {
   // Remove existing grid
@@ -8,10 +10,13 @@ function createGrid(numSquaresPerSide) {
   }
 
   // Create new grid
+  const squareSize = `calc(960px / ${numSquaresPerSide})`;
   for (let i = 0; i < numSquaresPerSide; i++) {
     for (let j = 0; j < numSquaresPerSide; j++) {
       const square = document.createElement("div");
       square.classList.add("square");
+      square.style.width = squareSize;
+      square.style.height = squareSize;
       gridContainer.appendChild(square);
 
       square.addEventListener("mouseover", () => {
@@ -47,22 +52,20 @@ function createGrid(numSquaresPerSide) {
     }
   }
 
-  // Adjust square size based on new number of squares per side
-  const squareSize = `calc(960px / ${numSquaresPerSide})`;
-  const squares = document.querySelectorAll(".square");
-  squares.forEach((square) => {
-    square.style.width = squareSize;
-    square.style.height = squareSize;
-  });
+  // Update numSquaresDisplay
+  numSquaresDisplay.textContent = numSquaresPerSide;
 }
 
-newGridButton.addEventListener("click", () => {
-  let numSquaresPerSide = prompt(
-    "Enter the number of squares per side (max: 100):"
-  );
-  numSquaresPerSide = Math.min(numSquaresPerSide, 100); // Limit to max of 100 squares
+// Initialize grid with default value
+createGrid(slider.value);
+
+// Add event listeners
+slider.addEventListener("input", () => {
+  const numSquaresPerSide = slider.value;
   createGrid(numSquaresPerSide);
 });
 
-// Create initial grid
-createGrid(16);
+newGridBtn.addEventListener("click", () => {
+  const numSquaresPerSide = slider.value;
+  createGrid(numSquaresPerSide);
+});
