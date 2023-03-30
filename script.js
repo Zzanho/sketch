@@ -58,7 +58,7 @@ function createGrid(numSquaresPerSide) {
 createGrid(slider.value);
 
 // Add event listeners
-newGridBtn.addEventListener("input", () => {
+newGridBtn.addEventListener("click", () => {
   const numSquaresPerSide = slider.value;
   createGrid(numSquaresPerSide);
 });
